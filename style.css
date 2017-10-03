@@ -1,0 +1,199 @@
+/* h1 style */
+h1 {
+font-family: "Rockwell", Georgia, Times, "Times New Roman", serif; 
+color: white;
+ 
+font-size: 52px}
+
+/* Basic format for the webpage */
+body	{
+font-family: Helvetica, Arial, sans-serif; 
+background-image: url('background.jpg');
+background-position: top center;
+background-repeat: no-repeat;
+background-size: 112%;
+background-color: black;
+color: white;
+}
+
+img {
+width: auto;
+max-width: 10%;
+height: auto;
+
+}
+
+/* Paragraph style */
+p 	{
+opacity: 1;
+}
+
+/* unordered list style */
+#menu ul {
+font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+height: auto;
+padding: 8px 0px;
+margin: 0px;
+}
+
+/* ordered list style */
+ol	{
+margin-left: 10%; display: inline;
+}
+
+#menu {
+	width: 1100px;
+	height: 35px;
+	font-size:16px;
+	font-weight: bold;
+	text-align: center;
+	border-radius: 0px;
+	background-color: #801815;
+}
+
+#menu li {
+	display: inline;
+	padding: 5px;
+}
+
+#menu ul {
+    height: auto;
+    padding: 8px 0px;
+    margin: 0px;
+}
+
+#menu a {
+	color: white;
+    text-decoration: none;
+    padding: 8px 8px 8px 8px;
+}
+
+#menu a:hover {
+    color: #AA6D38;
+    background-color: #801815;
+}
+
+/*break*/
+#menu2 ul {
+font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+height: auto;
+padding: 8px 0px;
+margin: 0px;
+}
+
+#menu2 {
+	width: 1100px;
+	height: 35px;
+	font-size:16px;
+	font-weight: bold;
+	text-align: center;
+	border-radius: 0px;
+	background-color: #801815;
+}
+
+#menu2 li {
+	display: inline;
+	padding: 5px;
+}
+
+#menu2 ul {
+    height: auto;
+    padding: 8px 0px;
+    margin: 0px;
+}
+
+#menu2 a {
+	color: white;
+    text-decoration: none;
+    padding: 8px 8px 8px 8px;
+}
+
+#menu2 a:hover {
+    color: #AA6D38;
+    background-color: #801815;
+}
+
+#menu2 form {
+	display: inline;
+	padding: 5px;
+}
+
+a:link, a:visited, a:active{
+color: white;
+font-weight: bold;
+font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+text-decoration: none;
+}
+
+a:hover {
+color: #801815;
+font-weight: bold;
+font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+text-decoration: none;
+}
+
+#size {
+height: 700px;
+width: 1080px;
+padding: 10px 10px 10px 10px;
+background-color: rgba(0,0,0,0.7);
+overflow:auto;
+text-align: left;
+}
+
+#overall {
+margin-left: auto;
+margin-right: auto;
+margin-bottom: 5%;
+text-align: center;
+width: 1130px;
+}
+
+th {
+text-align: center;
+}
+
+td {
+text-align: center;
+}
+
+#dataSpace {
+padding-left: 50px;
+text-align: right;
+}
+
+#dataSpace2 {
+padding-left: 10px;
+padding-right: 10px;
+text-align: right;
+}
+
+#dataSpace3 {
+padding-left: 10px;
+padding-right: 10px;
+text-align: left;
+}
+
+#dataSpace4 {
+padding-left: 25px;
+padding-right: 25px;
+text-align: left;
+}
+
+#rowHeader {
+font-weight: bold;
+
+}
+
+.catFormat {
+font-weight: bold;
+}
+
+.inputtext { 
+width: 200px;
+height: 200px;
+}
+
+/* class element */
+.special { color: red; font-family: Times New Roman;}
+

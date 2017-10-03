@@ -1,0 +1,179 @@
+<!--
+/*******************************************************************************
+* NAME: HAROLD DANE C. BAGUINON                                                *
+* DATE: 09/24/2015                                                             *
+* DATE DUE: 09/24/2015 06:00:00 PM                                             *
+* COURSE: CSC521 010                                                           *
+* PROFESSOR: DR. SPIEGEL                                                       *
+* PROJECT: #3                                                                  *
+* FILENAME: other.html                                                         *
+* PURPOSE: This program is the second project, but it's numbered as "3" due to *
+*          Project 2 being skipped. This program is a website/servlet that will*
+*          provide outputs depending on the user's selection. It can display   *
+*          information on sun and moon data for one day, a duration of         *
+*          lightness/darkness for one day, dates of primary phases of the moon,*
+*          the fraction of the moon illuminated, or the altitude and azimuth of*
+*          the sun or moon during the day. This program uses several languages *
+*          and techniques, including AJAX, HTML, Java, Javascript, and PHP.    *
+* Website link: http://acad.kutztown.edu/~hbagu753/project3/                   *
+*******************************************************************************/
+-->
+<html>
+    <head>
+        <meta name="Author" content="Harold Baguinon">
+        <title>CSC521 Project 3</title>
+        
+        <script src="moment.js"></script>
+        
+        <script>
+        var currentMomentState = moment();
+
+        function initPage()
+        {
+            currentMomentState.year(2015).month(11).date(14);
+            populateMonthList('monthSelect');
+            populateDayList('daySelect');
+        }
+
+        function populateMonthList(id)
+        {
+            var monthSelect = document.getElementById(id);
+            for(count = 0; count < moment.months().length; count++)
+            {
+                var option = document.createElement('option');
+                option.text = moment.months()[count];
+                monthSelect.add(option);
+            }
+        }
+
+        function populateDayList(id)
+        {
+            var daySelect = document.getElementById(id);
+            var daysInMonth = numDaysInCurrentMonth();
+            var selectLength = daySelect.length;
+            if(selectLength < daysInMonth)
+            {
+                for(count = selectLength + 1; count <= daysInMonth; count++)
+                {
+                    var option = document.createElement('option');
+                    option.text = count;
+                    daySelect.add(option);
+                }
+            }
+            else if(selectLength > daysInMonth)
+            {
+                for(count = selectLength - 1; count >= daysInMonth; count--)
+                {
+                    daySelect.remove(count);
+                }
+                daySelect.value = currentMomentState.date();
+            }
+        }
+
+        function setCurrentMomentYear(year, daySelectId)
+        {
+            var tempMoment = moment().year(year).month(1);
+            if(currentMomentState.month() == 1 && currentMomentState.isLeapYear() && !tempMoment.isLeapYear())
+            {
+                var daySelect = document.getElementById(daySelectId);
+                daySelect.value = tempMoment.endOf('month').date();
+                setCurrentMomentDay(tempMoment.date());
+                currentMomentState.year(year);
+                populateDayList(daySelectId);
+            }
+            else if(currentMomentState.month() == 1 && !currentMomentState.isLeapYear() && tempMoment.isLeapYear())
+            {
+                currentMomentState.year(year);
+                populateDayList(daySelectId);
+            }
+            else
+            {
+                currentMomentState.year(year);
+            }
+            sndReq();
+        }
+
+        function setCurrentMomentMonth(month, daySelectId)
+        {
+            currentMomentState.month(month);
+            populateDayList(daySelectId);
+            sndReq();
+        }
+
+        function setCurrentMomentDay(day)
+        {
+            currentMomentState.date(day);
+            sndReq();
+        }
+
+        function numDaysInCurrentMonth()
+        {
+            var tempMoment = moment().year(currentMomentState.year()).month(currentMomentState.month()).endOf('month');
+            return tempMoment.date();
+        }
+
+        function createRequestObject()
+        {
+            var ro;
+            var browser = navigator.appName;
+            if(browser == "Microsoft Internet Explorer")
+            {
+                ro = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            else
+            {
+                ro = new XMLHttpRequest();
+            }
+
+            return ro;
+        }
+
+        var http = createRequestObject();
+        
+        function sndReq()
+        {
+            http.open('GET', 'http://hbagu753.kutztown.edu:8080/SunMoonInfo/SunMoonServlet', true);
+            http.onreadystatechange = handleResponse;
+            http.send();
+        }
+
+        function handleResponse()
+        {
+            if(http.readyState == 4)
+            {
+                var response = http.responseText;
+                var TheDiv = document.getElementById('responseDiv');
+                TheDiv.innerHTML=response;
+            }
+        }
+        </script>
+        <body onload="initPage()">
+    </head>
+
+    <body>
+        <FORM Name="input" action=http://hbagu753.kutztown.edu:8080/SunMoonInfo/SunMoonServlet method=POST>
+        <INPUT Type=radio Value='Pop' Name=buttonGroup>States in Population Range
+	    
+        Low: <INPUT Type="text" Name="low" value="" size=8 >
+	    High: <INPUT Type="text" Name="hi" value="" size=8 >
+        <BR>
+        <INPUT Type=radio Value="Cap" Name=buttonGroup>Change State Capital
+        
+        State: <INPUT Type="text" Name="state" value="" size=18 >
+        New Capital: <INPUT Type="text" Name="newcap" value="" size=18 >
+	
+        <BR><BR>
+        <INPUT Type="Submit" value="Query"><Code>    </Code><INPUT Type="Reset">
+    
+    
+    
+    
+        <form name="dateSelectForm" action="javascript:sndReq()">
+            <input type="number" name="yearEntry" maxlength="4" min="1700" max="2100" onChange="setCurrentMomentYear(value, daySelect.id)"> 
+            <select id="monthSelect" onChange="setCurrentMomentMonth(value, daySelect.id)"></select>
+            <select id="daySelect" onChange="setCurrentMomentDay(value)"></select>
+            <input type="button" value="Choose" onClick="sndReq()"><br><br>
+        </form>
+        <div id="responseDiv"></div>
+    </body>
+</html>

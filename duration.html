@@ -1,0 +1,188 @@
+<!--
+/*******************************************************************************
+* NAME: HAROLD DANE C. BAGUINON                                                *
+* DATE: 12/10/2015                                                             *
+* DATE DUE: 12/12/2015 04:00:00 PM                                             *
+* COURSE: CSC521 010                                                           *
+* PROFESSOR: DR. SPIEGEL                                                       *
+* PROJECT: #4                                                                  *
+* FILENAME: duration.html                                                      *
+* PURPOSE: This program is the third project, but it's numbered as "4" due to  *
+*          Project 2 being skipped. This program is a website/servlet that will*
+*          provide outputs depending on the user's selection. It can display   *
+*          information on sun and moon data for one day, a duration of         *
+*          lightness/darkness for one day, dates of primary phases of the moon,*
+*          the fraction of the moon illuminated, or the altitude and azimuth of*
+*          the sun or moon during the day. This program uses several languages *
+*          and techniques, including AJAX, HTML, Java, Javascript, and Beans.  *
+*          It is a continuation of Project 3.                                  *
+* Website link: http://hbagu753.kutztown.edu:8080/SunMoonInfo/index.html       *
+* JAVADOC LOCATION: http://acad.kutztown.edu/~hbagu753/project4/javadoc        *
+*******************************************************************************/
+-->
+<html>
+    <head>
+        <meta name="Author" content="Harold Baguinon">
+        <title>CSC521 Project 4</title>
+            <link rel="stylesheet" type="text/css" href="style.css" />
+        
+        <script src="script.js" type="text/javascript"/></script>
+        
+        
+    </head>
+
+    <body><!--body onload="initPage()"-->
+        <div id="overall">
+            <h1>USNO Sun and Moon Data</h1>
+            <div id="menu">
+            <ul>
+              <li><a href="index.html">1. One Day</a></li>
+              <li><a href="duration.html">2. Duration</a></li>
+              <li><a href="phases.html">3. Phases</a></li>
+              <li><a href="illumination.html">4. Illumination</a></li>
+              <li><a href="azimuth.html">5. Azimuth</a></li>
+            </ul>
+            </div>
+            
+            <div id="size">
+            <h2> <span class="style3">
+            <p align="center">Duration of Daylight/Darkness Table for One Day<br />
+            </p>
+            </span></h2>
+            
+            <!--FORM Name="input" action=http://hbagu753.kutztown.edu:8080/SunMoonInfo/SunMoonServlet method=POST>
+            <INPUT Type=radio Value='Pop' Name=buttonGroup>States in Population Range
+            <BR>
+            Low: <INPUT Type="text" Name="low" value="" size=8 >
+            High: <INPUT Type="text" Name="hi" value="" size=8 >
+            <BR>
+            <BR>
+            <INPUT Type=radio Value='Pop' Name=buttonGroup>States in Population Range
+            <INPUT Type=radio Value="Cap" Name=buttonGroup>Change State Capital
+            
+            State: <INPUT Type="text" Name="state" value="" size=18 >
+            New Capital: <INPUT Type="text" Name="newcap" value="" size=18 >
+        
+            <BR><BR>
+            <INPUT Type="Submit" value="Query"><Code>    </Code><INPUT Type="Reset">
+            <BR><BR>
+            <BR><BR-->
+            
+            <p align="center">
+			<center>
+            <form name="servletForm" id="servletForm" action="http://hbagu753.kutztown.edu:8080/SunMoonInfo/SunMoonServlet" method=POST>
+                <input type="hidden" name="formInput" value="formInput2">
+                This page provides a way for you to obtain the duration of daylight or<BR>
+                darkness for a day in any year between 1700 and 2100. Please choose <BR>
+                daylight or darkness, then enter the year, month, day, city, and state.<BR>
+                <BR>
+                <label for="tableType">Type of Table: </label>
+                <select name="tableType" id="tableType">
+                    <option value="-1" selected="selected">Daylight</option>
+					<option value="1">Darkness</option>
+                </select><BR>
+                <label for="monthSelect">Month: </label>
+                <select name="monthSelect" id="monthSelect" onchange="UpdateDay(false)">
+                    <option value="1">January</option>
+					<option value="2">February</option>
+					<option value="3">March</option>
+					<option value="4">April</option>
+					<option value="5">May</option>
+					<option value="6">June</option>
+					<option value="7">July</option>
+					<option value="8">August</option>
+					<option value="9">September</option>
+					<option value="10">October</option>
+					<option value="11">November</option>
+					<option value="12" selected="selected">December</option>
+                </select>
+                <label for="daySelect">Day: </label>
+                <select name="daySelect" id="daySelect"></select>
+                <label for="yearEntry">Year: </label>
+                <input type="number" name="yearEntry" maxlength="4" min="1700" max="2100" value="2015">
+                <BR>
+                <label for="location">City: </label><input type="text" name="location" id="location" size="32" maxlength="32" />
+                        
+                <label for="st">State or Territory: </label><select name="st" id="st">
+                            <option value="AL">Alabama</option>
+                            <option value="AK">Alaska</option>
+                            <option value="AS">American Samoa</option>
+                            <option value="AZ">Arizona</option>
+                            <option value="AR">Arkansas</option>
+                            <option value="CA">California</option>
+                            <option value="CO">Colorado</option>
+                            <option value="CT">Connecticut</option>
+                            <option value="DE">Delaware</option>
+                            <option value="DC">District of Columbia</option>
+                            <option value="FL">Florida</option>
+                            <option value="GA">Georgia</option>
+                            <option value="GU">Guam</option>
+                            <option value="HI">Hawaii</option>
+                            <option value="ID">Idaho</option>
+                            <option value="IL">Illinois</option>
+                            <option value="IN">Indiana</option>
+                            <option value="IA">Iowa</option>
+                            <option value="KS">Kansas</option>
+                            <option value="KY">Kentucky</option>
+                            <option value="LA">Louisiana</option>
+                            <option value="ME">Maine</option>
+                            <option value="MD">Maryland</option>
+                            <option value="MA">Massachusetts</option>
+                            <option value="MI">Michigan</option>
+                            <option value="MN">Minnesota</option>
+                            <option value="MS">Mississippi</option>
+                            <option value="MO">Missouri</option>
+                            <option value="MT">Montana</option>
+                            <option value="NE">Nebraska</option>
+                            <option value="NV">Nevada</option>
+                            <option value="NH">New Hampshire</option>
+                            <option value="NJ">New Jersey</option>
+                            <option value="NM">New Mexico</option>
+                            <option value="NY">New York</option>
+                            <option value="NC">North Carolina</option>
+                            <option value="ND">North Dakota</option>
+                            <option value="MP">N. Mariana Islands</option>
+                            <option value="OH">Ohio</option>
+                            <option value="OK">Oklahoma</option>
+                            <option value="OR">Oregon</option>
+                            <option value="PA" selected="selected">Pennsylvania</option>
+                            <option value="PR">Puerto Rico</option>
+                            <option value="RI">Rhode Island</option>
+                            <option value="SC">South Carolina</option>
+                            <option value="SD">South Dakota</option>
+                            <option value="TN">Tennessee</option>
+                            <option value="TX">Texas</option>
+                            <option value="UT">Utah</option>
+                            <option value="VT">Vermont</option>
+                            <option value="VI">Virgin Islands</option>
+                            <option value="VA">Virginia</option>
+                            <option value="WA">Washington</option>
+                            <option value="WV">West Virginia</option>
+                            <option value="WI">Wisconsin</option>
+                            <option value="WY">Wyoming</option>
+                        </select>
+                        <BR><BR>
+                <input type="Submit" value="Submit" onClick="javascript:sndReq()"><INPUT Type="Reset"><br><br>
+            </form>
+			</center>
+            </p>
+            </div>
+            
+            
+            
+            
+            <div id="menu2">
+            <ul>
+              <li>Search:
+                <form method="get" action="search.php"><input id="search" name="search" type="text" />&nbsp;&nbsp;<input value="Submit" id="submit" type="submit" /></form>
+              </li>
+              <h6><span class="special">Copyright &copy; Harold Baguinon. All rights reserved.</span></h6>
+            </ul>
+            </div>
+        </div>
+
+            
+        
+        <div id="responseDiv"></div>
+    </body>
+</html>
